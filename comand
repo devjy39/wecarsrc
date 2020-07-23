@@ -1,0 +1,3 @@
+package make : catkin_create_pkg "" std_msgs rospy
+
+chmod : sudo chmod 666 /dev/ttyUSB0
