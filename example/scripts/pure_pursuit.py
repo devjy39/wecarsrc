@@ -16,8 +16,9 @@ from tf.transformations import euler_from_quaternion,quaternion_from_euler
 class pure_pursuit:
 
     def __init__(self):
-        rospy.init_node('make_path',anonymous=True)
-        rospy.Subscriber('/path',Path,self.path_callback)
+        rospy.init_node('pure_pursuit',anonymous=True)
+        rospy.Subscriber('/local',Path,self.path_callback)
+        rospy.Subscriber('/sensors/core', VescStateStamped, self.speed_callback)
 
         rospy.Subscriber('/odom',Odometry, self.odom_callback)
         #rospy.Subscriber("/amcl_pose",PoseWithCovarianceStamped,self.amcl_callback)
@@ -31,9 +32,12 @@ class pure_pursuit:
         self.forward_point = Point()
         self.current_position = Point()
         self.is_look_forward_point = False
-        self.vehicle_length = 0.5
-        self.lfd = 0.5
-        self.steering = 0
+        self.vehicle_length = 1
+        self.lfd = 0.0
+        self.min_lfd = 1.0
+        self.max_lfd = 15.0
+        self.steering = Float64()
+        self.speed = Float64()
 
         self.steering_angle_to_servo_gain = -1.2135
         self.steering_angle_to_servo_offset = 0.5304
@@ -64,9 +68,17 @@ class pure_pursuit:
                 theta = -atan2(rotated_point.y,rotated_point.x)
 
                 if self.is_look_forward_point:
+                    s = (self.speed / 4616) * 3.6
+                    if(s<10):
+                        self.lfd = self.min_lfd
+                    elif(s>10 and s<70):
+                        self.lfd = s/6
+                    else:
+                        self.lfd = self.max_lfd
+
                     self.steering = atan2((2*self.vehicle_length*sin(theta)),self.lfd)
-                    print(self.steering*180/pi)
-                    self.motor_msg.data = 4000
+                    print(self.steering*180/pi, self.lfd)
+                    #self.motor_msg.data = 76933
                 else:
                     self.steering=0
                     print("no found forward point")
@@ -76,8 +88,11 @@ class pure_pursuit:
                 self.servo_msg.data = self.steering_command
 
                 self.servo_pub.publish(self.servo_msg)
-                self.motor_pub.publish(self.motor_msg)
+                #self.motor_pub.publish(self.motor_msg)
             rate.sleep()
+
+    def speed_callback(self,msg):
+        self.speed = msg.state.speed
 
     def path_callback(self,msg):
         self.is_path = True

@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="gps_common" type="map_odom.py" name="map_odom"/>
+	<node pkg="gps_common" type="map_pub.py" name="map_pub" />
+	<node pkg="gps_common" type="path_pub.py" name="path_pub" output="screen"/>	
+
+</launch>

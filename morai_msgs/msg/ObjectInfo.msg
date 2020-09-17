@@ -1,5 +1,5 @@
 Header header
-int32 num_of_object
+int32 num_of_objects
 int16[] object_type
 
 float64[] pose_x
