@@ -1,9 +1,7 @@
-고명근선생님 gitlab : https://gitlab.com/gusto94/gunsan_edu
-
-cmakeList 파일은 각 컴퓨터에 종속되므로 삭제
-
 #tip
 패키지 생성 cd catkin->src  =>   catkin_create_pkg 패키지이름 (std_msgs) rospy  => cm
+
+cmakeList 파일은 각 컴퓨터에 종속되므로 삭제
 
 권한 
 		chmod +x f.py	sudo chmod 777 /dev/ttyACM0
@@ -15,7 +13,7 @@ cmakeList 파일은 각 컴퓨터에 종속되므로 삭제
 		rostopic pub /commands/motor/speed std_msgs/Float64 "data: 1700.0"
 
 
-모라이시뮬레이터 켜는법
+- 모라이시뮬레이터 켜는법
 1.sudo simulator
 
 2.rosbridge websocket
@@ -58,44 +56,3 @@ odom토픽으로 rpridar rviz에서 보이기
 		rqt에서 global_localization 토픽 service caller로 call 하면 map에 particle뿌려짐
 
 		rviz에서 posearray 토픽 확인
-
-
-
-github 쓰는법
-새폴더에서 git init 치면 깃 로컬 저장소가 된다
-
-		git status 상태보기
-
-		touch example1.py 파일생성
-		git status
-
-		git add .   추가
-		git status
-
-		git config --global user.email "wodufdl48@naver.com" 
-		git config --global user.name "
-
-		git commit -m "init" 커밋하기 
-
-		git log 커밋 로그 보기
-
-		gitk 관리모드
-
-		git branch dev 브랜치만들기
-
-		git branch -a 브랜치 all보기
-
-		git checkout 'branch명' 로그인느낌
-
-		git merge 'branch명' 병합
-
-깃에 올리기
-		git remot add orgin git@github.com/아디/파일명
-
-		ssh-keygen -> cd .ssh -> gedit id_rsa.pub 
-하면 key값나옴 github에 등록하면 ip(컴퓨터)인증 그 후 업로드
-
-
-
-
-
