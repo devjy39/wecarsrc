@@ -14,20 +14,20 @@ cmakeList 파일은 각 컴퓨터에 종속되므로 삭제
 
 
 - 모라이시뮬레이터 켜는법
-1.sudo simulator
+1. sudo simulator
 
-2.rosbridge websocket
+2. rosbridge websocket
 
-3.server연결 적용
+3. server연결 적용
 
-4.센서연결 적용
+4. 센서연결 적용
 
-5.rviz or rqt
+5. rviz or rqt <br>
 
-모터
+- 모터 데이터 조회
 		rostopic pub /commands/motor/speed std_msgs/Float64 "data: 2000.0" -r 10
 
-핸들
+- 핸들 데이터 조회
 		rostopic pub /commands/servo/position std_msgs/Float64 "data: 0.5304" -r 10
 
 steering 실제값
